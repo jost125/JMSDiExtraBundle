@@ -112,13 +112,11 @@ class ControllerResolver extends BaseControllerResolver
         $container = new ContainerBuilder();
         $container->setParameter('jms_aop.cache_dir', $this->container->getParameter('jms_di_extra.cache_dir'));
         $container->setParameter('jms_aop.use_compilation_cache', $useCompilationCache);
-        if ($useCompilationCache) {
-            $container->setParameter(
-               'jms_aop.compilation_cache_provider_service',
-               $this->container->getParameter('jms_aop.compilation_cache_provider_service')
-            );
-            $container->set('jms_aop.compilation_cache', $this->container->get("jms_aop.compilation_cache"));
-        }
+        $container->setParameter(
+           'jms_aop.compilation_cache_provider_service',
+           $this->container->getParameter('jms_aop.compilation_cache_provider_service')
+        );
+        $container->set('jms_aop.compilation_cache', $this->container->get("jms_aop.compilation_cache"));
         $def = $container
            ->register('jms_aop.interceptor_loader', 'JMS\AopBundle\Aop\InterceptorLoader')
            ->addArgument(new Reference('service_container'))
